@@ -167,9 +167,6 @@ class CustomPredictor(Model):
     ) -> InferResponse:
         """Postprocess step for the inference request.
 
-        If the return-masked-image header is set to true, apply the mask
-        on the image and return the masked image.
-
         Args:
             response (InferResponse): The response from the inference request.
             headers (Dict[str, str], optional): The headers from the
