@@ -1,6 +1,6 @@
 name: "Build and Push Docker Image"
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       DOCKER_FILEPATH:
         description: "The path dockerfile."
@@ -39,7 +39,7 @@ jobs:
         key: ${{ runner.os }}-buildx-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-buildx-
-    - name: Build and push Docker image with version tag
+    - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
         context: .
