@@ -46,6 +46,6 @@ jobs:
         file: ${{ inputs.DOCKER_FILEPATH }}
         push: true
         tags: lloydhamilton/latest
-        platforms: ${{ inputs.ARCHITECTURE }}
+        platforms: linux/amd64,linux/arm64/v8
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
