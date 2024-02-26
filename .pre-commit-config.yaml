@@ -24,7 +24,9 @@ repos:
   hooks:
   - id: poetry-check
   - id: poetry-export
-    args: ["-f", "requirements.txt", "-o", "requirements.txt", "--without-hashes"]
+    args: ["-f", "requirements.txt", "-o", "custom_predictor/requirements.txt", "--without-hashes", "--without", "dev"]
+  - id: poetry-export
+    args: ["-f", "requirements.txt", "-o", "requirements.txt", "--without-hashes", "--with", "dev"]
 
 - repo: https://github.com/gitleaks/gitleaks
   rev: v8.17.0
