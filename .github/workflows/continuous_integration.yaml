@@ -7,8 +7,8 @@ on:
 jobs:
   unit-tests:
     name: Run Unit Tests
-    uses: lloydhamilton/kserve_demo/.github/workflows/pytest.yaml@main
+    uses: ./.github/workflows/pytest.yaml@main
   docker-build:
     needs: unit-tests
     name: Build Docker Image
-    uses: lloydhamilton/kserve_demo/.github/workflows/build_push_docker.yaml@main
+    uses: ./.github/workflows/build_push_docker.yaml@main
