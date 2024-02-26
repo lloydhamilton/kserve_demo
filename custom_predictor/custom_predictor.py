@@ -1,7 +1,6 @@
 import base64
 import io
 import logging
-import os
 
 import numpy as np
 import torch
@@ -151,8 +150,8 @@ class CustomPredictor(Model):
         response_id = generate_uuid()
         parameters = {
             "model_name": self.name,
-            "model_version": os.environ["MODEL_VERSION"],
-            "model_registry_name": os.environ["MODEL_REGISTRY_NAME"],
+            "model_version": 1,
+            "model_registry_name": "demo-model",
         }
         infer_response = InferResponse(
             model_name=self.name,
@@ -186,10 +185,5 @@ class CustomPredictor(Model):
 
 
 if __name__ == "__main__":
-    if os.environ.get("MODEL_NAME"):
-        MODEL_NAME = os.environ.get("MODEL_NAME")
-    else:
-        MODEL_NAME = os.environ["MODEL_REGISTRY_NAME"]
-
-    model = CustomPredictor(os.environ["MODEL_NAME"])
+    model = CustomPredictor("kserve-demo-model")
     ModelServer().start([model])
