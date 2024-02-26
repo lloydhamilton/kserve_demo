@@ -12,7 +12,6 @@ on:
         required: false
         type: string
         default: kserve-demo
-    secrets: inherit
 
 jobs:
   build-image:

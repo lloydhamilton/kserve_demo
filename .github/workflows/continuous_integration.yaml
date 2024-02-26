@@ -12,3 +12,4 @@ jobs:
     needs: unit-tests
     name: Build Docker Image
     uses: ./.github/workflows/build_push_docker.yaml
+    secrets: inherit
