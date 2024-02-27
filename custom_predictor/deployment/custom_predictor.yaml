@@ -1,0 +1,25 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  name: kserve-demo-model
+  namespace: kserve
+spec:
+  predictor:
+    scaleTarget: 5
+    scaleMetric: concurrency
+    containers:
+    - name: kserve-container
+      args:
+        - --protocol
+        - grpc-v2
+        - --model_name
+        - kserve-demo-model
+      image: lloydhamilton/kserve-demo:latest
+      resources:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: "100m"
+          memory: "200Mi"
+    minReplicas: 1

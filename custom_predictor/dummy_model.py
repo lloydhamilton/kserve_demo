@@ -14,8 +14,7 @@ class DummyModel(nn.Module):
 
     def forward(self, input_tensor: torch.Tensor) -> torch.Tensor:
         input_shape = input_tensor.shape
-        return torch.from_numpy(
-            np.random.rand(input_shape[0], input_shape[1], input_shape[2]).astype(
-                np.float32
-            )
-        )
+        output = np.random.rand(
+            input_shape[0], input_shape[1], input_shape[2], input_shape[3]
+        ).astype(np.float32)
+        return torch.from_numpy(output)
