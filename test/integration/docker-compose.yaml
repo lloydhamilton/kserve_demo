@@ -1,0 +1,9 @@
+version: "3"
+services:
+  customservice:
+    ports:
+    - "8080:8080"
+    build:
+      context: ./../../
+      dockerfile: custom_predictor/Dockerfile
+    container_name: custom-predictor-service
