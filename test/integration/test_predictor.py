@@ -1,9 +1,29 @@
+import os
+
 from requests.exceptions import ConnectionError
 
 from urllib.parse import urljoin
 
 import pytest
 import requests
+
+
+@pytest.fixture(scope="session")
+def docker_compose_file(pytestconfig):
+    """Define the docker compose file.
+
+    Args:
+        pytestconfig: The pytest config.
+
+    Returns:
+        The docker compose file.
+    """
+    return os.path.join(
+        str(pytestconfig.rootdir),
+        "test",
+        "integration",
+        "docker-compose.yaml",
+    )
 
 
 def is_responsive(url):
@@ -16,7 +36,7 @@ def is_responsive(url):
 
 
 @pytest.fixture(scope="session")
-def pytorch_service(docker_ip, docker_services):
+def custom_service(docker_ip, docker_services):
     """Ensure that HTTP service is up and responsive."""
 
     # `port_for` takes a container port and returns the corresponding host port
@@ -31,7 +51,7 @@ def pytorch_service(docker_ip, docker_services):
 model_name = "kserve-demo-model"
 
 
-class TestPytorchRuntime:
+class TestCustomRuntime:
     @pytest.mark.parametrize(
         "url, expected_response",
         [
@@ -54,7 +74,7 @@ class TestPytorchRuntime:
         ],
     )
     def test_ready_endpoint(
-        self, url: str, expected_response: dict, pytorch_service: str
+        self, url: str, expected_response: dict, custom_service: str
     ) -> None:
         """
         Test all the health endpoints are working.
@@ -69,7 +89,7 @@ class TestPytorchRuntime:
         Returns:
             None
         """
-        health_url = urljoin(pytorch_service, url)
+        health_url = urljoin(custom_service, url)
         response = requests.get(health_url)
         assert response.status_code == 200
         assert response.json() == expected_response
